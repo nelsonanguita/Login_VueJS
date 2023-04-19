@@ -31,7 +31,7 @@ import router from '../router/index'
 
 import { app, auth } from '../firebase/init';
 
-import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , signInWithRedirect , getRedirectResult } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , signInWithRedirect , getRedirectResult } from "firebase/auth";
 
     export default {
         data() {
@@ -44,40 +44,68 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
             }
         },
         methods:{
-           popUpWithGoogle(){
-            this.provider = new GoogleAuthProvider();
+            async popUpWithGoogle(e){
             
-            if (this.mobile!==null) {
+           
+            
+            if ((this.mobile!==null)) {
+                this.provider = new GoogleAuthProvider();
 
-                signInWithRedirect(auth, this.provider);
+                const userCred = await signInWithPopup(auth, this.provider);
 
-                getRedirectResult(auth)
-                    .then((result) => {
-                        // This gives you a Google Access Token. You can use it to access Google APIs.
-                        const credential = GoogleAuthProvider.credentialFromResult(result);
-                        const token = credential.accessToken;
+                // console.log(userCred)
 
-                        // The signed-in user info.
-                        const user = result.user;
-                        // IdP data available using getAdditionalUserInfo(result)
-                        // ...
-                        router.push('/home')
-                        return;
-                    }).catch((error) => {
-                        // Handle Errors here.
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
-                        // The email of the user's account used.
-                        const email = error.customData.email;
-                        // The AuthCredential type that was used.
-                        const credential = GoogleAuthProvider.credentialFromError(error);
-                        // ...
-                    });
+                // await signInWithRedirect(auth, this.provider);
+                // console.log("result")
 
+                // const result = await getRedirectResult(auth);
+                // console.log(result)
+                // if (result) {
+                // // This is the signed-in user
+                // const user = result.user;
+                // // This gives you a Facebook Access Token.
+                // const credential = provider.credentialFromResult(auth, result);
+                // const token = credential.accessToken;
+                // }
+                // // As this API can be used for sign-in, linking and reauthentication,
+                // // check the operationType to determine what triggered this redirect
+                // // operation.
+                // const operationType = result.operationType;
+
+                // console.log(operationType)
+
+            //    getRedirectResult(auth)
+            //         .then((result) => {
+            //             // This gives you a Google Access Token. You can use it to access Google APIs.
+            //             const credential = GoogleAuthProvider.credentialFromResult(result);
+            //             const token = credential.accessToken;
+
+            //             // The signed-in user info.
+            //             const user = result.user;
+            //             // IdP data available using getAdditionalUserInfo(result)
+            //             // ...
+
+            //             console.log("autenticado???")
+            //             router.push('/home')
+            //             return;
+            //         }).catch((error) => {
+            //             // Handle Errors here.
+            //             const errorCode = error.code;
+            //             const errorMessage = error.message;
+            //             // The email of the user's account used.
+            //             const email = error.customData.email;
+            //             // The AuthCredential type that was used.
+            //             const credential = GoogleAuthProvider.credentialFromError(error);
+            //             // ...
+
+            //             console.log(errorMessage)
+            //         });
+
+                    return ;
             
                 
-            }
-            //provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+            }else{
+                            //provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
             signInWithPopup(auth, this.provider)
                 .then((result) => {
                     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -102,6 +130,8 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                     const credential = GoogleAuthProvider.credentialFromError(error);
                     // ...
                 });
+            }
+
 
            },
            popUpWithFacebook(){
@@ -168,23 +198,27 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                     }
                     };
                    this.mobile = mobile.any(); 
-                }
+                },
+            existeSesion(){
+               
+               auth.onAuthStateChanged(function(user) {
+   
+               if (user) {
+                   router.push("/home");
+                   console.log('Sesion activa')  
+                   //console.log(user)  
+               } else {
+                   console.log('Sesion cerrada')  
+                   console.log(user)  
+     
+               }
+               });
+           }
            
         },
         created(){
-            ()=>{
-               
-            auth.onAuthStateChanged(function(user) {
-
-            if (user) {
-                console.log('Sesion activa')  
-                console.log(user)  
-            } else {
-                console.log('Sesion cerrada')       
-            }
-            });
-        },
-        this.isMobile();
+            this.existeSesion(),
+            this.isMobile();
 
         },
         

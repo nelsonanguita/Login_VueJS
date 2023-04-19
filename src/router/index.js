@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
         path: '/'
       })
     } else {
-      console.log("ssdsadasds")
+      console.log("HOME")
       next()
     }
 
