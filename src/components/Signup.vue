@@ -20,7 +20,7 @@
                 <input type="password"  v-model="password" class="form-control form-control-lg" />
             </div>
             
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Registrar</button>
+            <button type="submit"  class="btn btn-dark btn-lg btn-block">Registrar</button>
             <p class="forgot-password text-right">
                 Ya estás registrado? 
                 <router-link :to="{name: 'login'}">Inicia sesion</router-link>
@@ -31,6 +31,7 @@
 
 <script>
 
+import router from '../router'
 
 import { app, auth } from '../firebase/init';
 import { createUserWithEmailAndPassword, onAuthStateChanged  } from 'firebase/auth'
@@ -60,7 +61,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged  } from 'firebase/au
                             const uid = user.uid;
                             // ...
                             console.log('user created ' + JSON.stringify(user))
-
+                            router.push('/Home')
 
                         } else {
                             // User is signed out
@@ -70,14 +71,12 @@ import { createUserWithEmailAndPassword, onAuthStateChanged  } from 'firebase/au
 
                     })
                     .catch((error) => {
-                        e.preventDefault();
 
                         const errorCode = error.code;
                         const errorMessage = error.message;
                         // ..
                     });
                        
-                    e.preventDefault()
       
 
 

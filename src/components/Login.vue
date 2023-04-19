@@ -1,9 +1,9 @@
 <template>
     <div class="vue-tempalte">
-        <button @click="signOut" class="btn btn-dark ">Cerra sesion</button>
+        <button @click="signOut"  class="btn btn-dark ">Cerra sesion</button>
 
         <form>
-            <h3>Inicia sesion {{datos }}</h3>
+            <h3>Inicia sesion {{email }}</h3>
             <div class="form-group">
                 <label>Email </label>
                 <input type="email" class="form-control form-control-lg" />
@@ -27,6 +27,8 @@
     </div>
 </template>
 <script>
+import router from '../router'
+
 import { app, auth } from '../firebase/init';
 
 import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , signInWithRedirect , getRedirectResult } from "firebase/auth";
@@ -34,6 +36,7 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
     export default {
         data() {
             return {
+                email:'',
                 datos:'',
                 user:'',
                 provider:'',
@@ -45,7 +48,7 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
             this.provider = new GoogleAuthProvider();
             
             if (this.mobile!==null) {
-                console.log("MOBILE")
+
                 signInWithRedirect(auth, this.provider);
 
                 getRedirectResult(auth)
@@ -58,6 +61,8 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                         const user = result.user;
                         // IdP data available using getAdditionalUserInfo(result)
                         // ...
+                        router.push('/home')
+
                     }).catch((error) => {
                         // Handle Errors here.
                         const errorCode = error.code;
@@ -69,6 +74,7 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                         // ...
                     });
 
+            
                 
             }
             //provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
@@ -84,6 +90,8 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                     // IdP data available using getAdditionalUserInfo(result)
                     // ...
                     console.log("sesion abierta con google")
+                    router.push('/home')
+
                 }).catch((error) => {
                     // Handle Errors here.
                     const errorCode = error.code;
@@ -94,9 +102,6 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                     const credential = GoogleAuthProvider.credentialFromError(error);
                     // ...
                 });
-
-
-
 
            },
            popUpWithFacebook(){
@@ -115,6 +120,8 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                     console.log(credential)
                     // IdP data available using getAdditionalUserInfo(result)
                     // ...
+                    router.push('/home')
+
                 })
                 .catch((error) => {
                     // Handle Errors here.
@@ -160,8 +167,6 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                         return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
                     }
                     };
-
-
                    this.mobile = mobile.any(); 
                 }
            

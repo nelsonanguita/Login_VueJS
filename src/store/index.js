@@ -11,6 +11,9 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
+    detectarUsuario({commit}, usuario){
+      commit('setUsuario', usuario)
+  }
   },
   modules: {
   }
