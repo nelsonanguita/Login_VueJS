@@ -29,21 +29,48 @@
 <script>
 import { app, auth } from '../firebase/init';
 
-import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut   } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , signInWithRedirect , getRedirectResult } from "firebase/auth";
 
     export default {
         data() {
             return {
                 datos:'',
                 user:'',
-                provider:''
+                provider:'',
+                mobile:''
             }
         },
         methods:{
            popUpWithGoogle(){
-            
-
             this.provider = new GoogleAuthProvider();
+            
+            if (this.mobile!==null) {
+                console.log("MOBILE")
+                signInWithRedirect(auth, this.provider);
+
+                getRedirectResult(auth)
+                    .then((result) => {
+                        // This gives you a Google Access Token. You can use it to access Google APIs.
+                        const credential = GoogleAuthProvider.credentialFromResult(result);
+                        const token = credential.accessToken;
+
+                        // The signed-in user info.
+                        const user = result.user;
+                        // IdP data available using getAdditionalUserInfo(result)
+                        // ...
+                    }).catch((error) => {
+                        // Handle Errors here.
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        // The email of the user's account used.
+                        const email = error.customData.email;
+                        // The AuthCredential type that was used.
+                        const credential = GoogleAuthProvider.credentialFromError(error);
+                        // ...
+                    });
+
+                
+            }
             //provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
             signInWithPopup(auth, this.provider)
                 .then((result) => {
@@ -67,6 +94,10 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut   } 
                     const credential = GoogleAuthProvider.credentialFromError(error);
                     // ...
                 });
+
+
+
+
            },
            popUpWithFacebook(){
             
@@ -107,12 +138,39 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut   } 
                     console.log(error)
                 // An error happened.
                 }); 
-            }
+            },
+            isMobile(){
+                var mobile = {
+                    Android: function() {
+                        return navigator.userAgent.match(/Android/i);
+                    },
+                    BlackBerry: function() {
+                        return navigator.userAgent.match(/BlackBerry/i);
+                    },
+                    iOS: function() {
+                        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                    },
+                    Opera: function() {
+                        return navigator.userAgent.match(/Opera Mini/i);
+                    },
+                    Windows: function() {
+                        return navigator.userAgent.match(/IEMobile/i);
+                    },
+                    any: function() {
+                        return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
+                    }
+                    };
+
+
+                   this.mobile = mobile.any(); 
+                }
            
         },
-        created :()=>{
-            
+        created(){
+            ()=>{
+               
             auth.onAuthStateChanged(function(user) {
+
             if (user) {
                 console.log('Sesion activa')  
                 console.log(user)  
@@ -121,6 +179,10 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut   } 
             }
             });
         },
+        this.isMobile();
+
+        },
+        
         
     }
 </script>
