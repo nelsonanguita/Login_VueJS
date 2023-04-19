@@ -27,7 +27,7 @@
     </div>
 </template>
 <script>
-import router from '../router'
+import router from '../router/index'
 
 import { app, auth } from '../firebase/init';
 
@@ -62,7 +62,7 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut , si
                         // IdP data available using getAdditionalUserInfo(result)
                         // ...
                         router.push('/home')
-
+                        return;
                     }).catch((error) => {
                         // Handle Errors here.
                         const errorCode = error.code;
