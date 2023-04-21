@@ -1,30 +1,54 @@
 <template>
-    <div class="vue-tempalte">
-        <button @click="signOut"  class="btn btn-dark ">Cerra sesion</button>
+
+    <div class="divPadre">
+
+        <div class="divHijo">
+            <img  src="../assets/LOGO.jpg" >
+        </div>
+        
+    
+    
+    
+    <div class="inner-block login">
 
         <form>
-            <h3>Inicia sesion {{email }}</h3>
-            <div class="form-group">
-                <label>Email </label>
+            <h1>Iniciar sesión </h1>
+            <div class="mb-3">
+                <div class="form-group">
+                <label>Correo electronico </label>
                 <input type="email" class="form-control form-control-lg" />
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>Contraseña</label>
                 <input type="password" class="form-control form-control-lg" />
+            </div>
             </div>
             <button type="submit" class="btn btn-dark btn-lg btn-block">Iniciar</button>
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
             </p>
-            <div class="social-icons">
-                <ul>
-                    <li><a @click="popUpWithGoogle"><i class="fa fa-google"></i></a></li>
-                    <li><a @click="popUpWithFacebook"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                </ul>
+            <div class="d-flex gap-5">
+                        <b-button  @click="popUpWithGoogle" class="button-login" variant="primary">
+                            <i class="bi bi-google">oogle</i>
+                        </b-button>
+                        <b-button @click="popUpWithFacebook" class="button-login" variant="primary">
+                            <i class="fa fa-facebook ">acebook</i>
+                        </b-button>
+                       
+          
             </div>
+
+        
+            
+
         </form>
     </div>
+
+
+
+
+
+</div>
 </template>
 <script>
 import router from '../router/index'
@@ -40,69 +64,22 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , sig
                 datos:'',
                 user:'',
                 provider:'',
-                mobile:''
+                mobile:'',
+                user:''
             }
         },
         methods:{
             async popUpWithGoogle(e){
-            
+          
            
-            
+             this.provider = new GoogleAuthProvider();
+
             if ((this.mobile!==null)) {
-                this.provider = new GoogleAuthProvider();
 
                 const userCred = await signInWithPopup(auth, this.provider);
-
-                // console.log(userCred)
-
-                // await signInWithRedirect(auth, this.provider);
-                // console.log("result")
-
-                // const result = await getRedirectResult(auth);
-                // console.log(result)
-                // if (result) {
-                // // This is the signed-in user
-                // const user = result.user;
-                // // This gives you a Facebook Access Token.
-                // const credential = provider.credentialFromResult(auth, result);
-                // const token = credential.accessToken;
-                // }
-                // // As this API can be used for sign-in, linking and reauthentication,
-                // // check the operationType to determine what triggered this redirect
-                // // operation.
-                // const operationType = result.operationType;
-
-                // console.log(operationType)
-
-            //    getRedirectResult(auth)
-            //         .then((result) => {
-            //             // This gives you a Google Access Token. You can use it to access Google APIs.
-            //             const credential = GoogleAuthProvider.credentialFromResult(result);
-            //             const token = credential.accessToken;
-
-            //             // The signed-in user info.
-            //             const user = result.user;
-            //             // IdP data available using getAdditionalUserInfo(result)
-            //             // ...
-
-            //             console.log("autenticado???")
-            //             router.push('/home')
-            //             return;
-            //         }).catch((error) => {
-            //             // Handle Errors here.
-            //             const errorCode = error.code;
-            //             const errorMessage = error.message;
-            //             // The email of the user's account used.
-            //             const email = error.customData.email;
-            //             // The AuthCredential type that was used.
-            //             const credential = GoogleAuthProvider.credentialFromError(error);
-            //             // ...
-
-            //             console.log(errorMessage)
-            //         });
-
-                    return ;
-            
+                if (userCred) {
+                    this.existeSesion()
+                }
                 
             }else{
                             //provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
@@ -112,7 +89,7 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , sig
                     const credential = GoogleAuthProvider.credentialFromResult(result);
                     const token = credential.accessToken;
                     // The signed-in user info.
-                    //this.user = result.user;
+                    this.user = result.user;
                    // console.log(JSON.stringify(user))
                     //this.datos =JSON.stringify(user)
                     // IdP data available using getAdditionalUserInfo(result)
@@ -203,23 +180,19 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , sig
                
                auth.onAuthStateChanged(function(user) {
    
-               if (user) {
-                   router.push("/home");
-                   console.log('Sesion activa')  
-                   //console.log(user)  
-               } else {
-                   console.log('Sesion cerrada')  
-                   console.log(user)  
-     
-               }
-               });
+                    if (user) {
+                        //this.user = user;
+                        router.push("/home");
+                        console.log('Sesion activa')  
+                    } else {
+                        console.log('Sesion cerrada')  
+                    }
+                    });
            }
            
         },
         created(){
-            this.existeSesion(),
             this.isMobile();
-
         },
         
         

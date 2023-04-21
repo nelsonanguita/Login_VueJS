@@ -1,12 +1,15 @@
 <template>
     <div class="vue-tempalte">
         <form>
-            <h3>Forgot Password</h3>
+            <h1>Recuperar Contraseña</h1>
+            <div class="mb-3">
+                
             <div class="form-group">
-                <label>Email address</label>
+                <label>Correo electronico</label>
                 <input type="email" class="form-control form-control-lg" />
             </div>
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Reset password</button>
+            </div>
+            <button type="submit" class="btn btn-dark btn-lg btn-block"> Enviar</button>
         </form>
     </div>
 </template>

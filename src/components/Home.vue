@@ -17,6 +17,7 @@
         signOut(){
                 signOut(auth).then(() => {
                 // Sign-out successful.
+                console.log('cerrar sesion')
                 
                 }).catch((error) => {
                     console.log(error)

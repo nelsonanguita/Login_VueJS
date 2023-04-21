@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkhoramedica"]=self["webpackChunkhoramedica"]||[]).push([[163],{6163:function(n,e,t){t.r(e),t.d(e,{default:function(){return O}});var u=function(){var n=this,e=n._self._c;return e("div",[e("button",{on:{click:n.signOut}}),e("h1",[n._v("LOGUEADOOOOOOO")])])},c=[],l=(t(7658),t(1120)),o=t(2392),r=t(3854),s={name:"Home",return(){},methods:{signOut(){(0,r.w7)(o.I).then((()=>{l.Z.push("/")})).catch((n=>{console.log(n)}))}}},a=s,h=t(1001),i=(0,h.Z)(a,u,c,!1,null,null,null),O=i.exports}}]);
-//# sourceMappingURL=163.13ad8455.js.map

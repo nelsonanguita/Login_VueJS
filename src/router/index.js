@@ -27,6 +27,20 @@ Vue.use(VueRouter)
     component: () => import('../views/Home.vue'),
     meta: { requiresAuth: true }
 
+  },
+  {
+    path: '/fichausuario',
+    name: 'fichausuario',
+    component: () => import('../views/FichaUsuario.vue'),
+    meta: { requiresAuth: true }
+
+  },
+  {
+    path: '/fichausuariocopy',
+    name: 'fichausuariocopy',
+    component: () => import('../views/FichaUsuariocopy.vue'),
+    meta: { requiresAuth: false }
+
   }
 ]
 const router = new VueRouter({
