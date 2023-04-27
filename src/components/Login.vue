@@ -23,10 +23,7 @@
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
             </p>
-          
-
-        </form>
-        <div class="d-flex gap-5">
+            <div class="d-flex gap-5">
                         <b-button  @click="popUpWithGoogle" class="button-login btn-light ">
                             <img class="img-icon" src="../assets/icons/google.svg" alt="" srcset="">
 
@@ -37,6 +34,9 @@
                         
 
             </div>
+
+        </form>
+
     </div>
 </div>
 
@@ -75,6 +75,8 @@ import { signInWithPopup,
                 const userCred = await signInWithPopup(auth, this.provider);
                 if (userCred) {
                     //this.existeSesion()
+                    router.push('/home')
+
                 }
                 
             }else{
