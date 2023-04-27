@@ -6,61 +6,57 @@
             <img  src="../assets/LOGO.jpg" >
         </div>
         
-    
-    
-    
     <div class="inner-block login">
-
-        <form>
-            <h1>Iniciar sesión </h1>
+        <form @submit="signIn">
+            <h2>Iniciar sesión </h2>
             <div class="mb-3">
                 <div class="form-group">
                 <label>Correo electronico </label>
-                <input type="email" class="form-control form-control-lg" />
+                <input type="email" v-model="email" class="form-control form-control-lg" />
             </div>
             <div class="form-group">
                 <label>Contraseña</label>
-                <input type="password" class="form-control form-control-lg" />
+                <input type="password" v-model="password" class="form-control form-control-lg" />
             </div>
             </div>
             <button type="submit" class="btn btn-dark btn-lg btn-block">Iniciar</button>
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
             </p>
-            <div class="d-flex gap-5">
-                        <b-button  @click="popUpWithGoogle" class="button-login" variant="primary">
-                            <i class="bi bi-google">oogle</i>
-                        </b-button>
-                        <b-button @click="popUpWithFacebook" class="button-login" variant="primary">
-                            <i class="fa fa-facebook ">acebook</i>
-                        </b-button>
-                       
           
-            </div>
-
-        
-            
 
         </form>
+        <div class="d-flex gap-5">
+                        <b-button  @click="popUpWithGoogle" class="button-login btn-light ">
+                            <img class="img-icon" src="../assets/icons/google.svg" alt="" srcset="">
+
+                        </b-button>
+                        <b-button @click="popUpWithFacebook" class="button-login" variant="primary">
+                            <img class="img-icon" src="../assets/icons/facebook.svg" alt="" srcset="">
+                        </b-button>
+                        
+
+            </div>
     </div>
-
-
-
-
-
 </div>
+
 </template>
 <script>
 import router from '../router/index'
 
-import { app, auth } from '../firebase/init';
+import { auth } from '../firebase/init';
 
-import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , signInWithRedirect , getRedirectResult } from "firebase/auth";
+import { signInWithPopup,
+     signInWithEmailAndPassword, 
+     GoogleAuthProvider, 
+     FacebookAuthProvider,
+     signOut } from "firebase/auth";
 
     export default {
         data() {
             return {
                 email:'',
+                password:'',
                 datos:'',
                 user:'',
                 provider:'',
@@ -78,7 +74,7 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , sig
 
                 const userCred = await signInWithPopup(auth, this.provider);
                 if (userCred) {
-                    this.existeSesion()
+                    //this.existeSesion()
                 }
                 
             }else{
@@ -188,6 +184,31 @@ import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider,signOut , sig
                         console.log('Sesion cerrada')  
                     }
                     });
+           },
+           signIn(e){
+  
+            e.preventDefault()
+
+            signInWithEmailAndPassword(auth, this.email, this.password)
+                .then((userCredential) => {
+
+                    // Signed in
+                    const user = userCredential.user;
+
+                    console.log("ingreso")
+                    router.push("/Home");
+
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    if (errorCode=='auth/user-not-found') {
+                        return alert("usuario no encontrado")    
+                    }
+               
+                    alert(errorCode);
+                });
            }
            
         },

@@ -1,6 +1,6 @@
 <template>
     <div class="inner-block ">
-      <b-form  @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form  @submit="onSubmit" v-if="show">
 
         <div class="mb-3">
            
@@ -49,18 +49,24 @@
        
   
         <b-button type="submit" variant="primary">Actualizar</b-button>
+        <b-button type="button" variant="dark" @click="signOut"> Cerrar sesion</b-button>
+
       </b-form>
 
     </div>
   </template>
   
   <script>
+  import { auth } from '../firebase/init';
+  import router from '../router'
+  import { signOut } from "firebase/auth";
+
     export default {
       data() {
         return {
           form: {
-            email: '',
-            name: '',
+            email: auth.currentUser.email,
+            name: auth.currentUser.name,
             food: null,
             checked: []
           },
@@ -70,7 +76,9 @@
       methods: {
         onSubmit(event) {
           event.preventDefault()
-          alert(JSON.stringify(this.form))
+          //alert(JSON.stringify(this.form))
+          router.push('/home')
+
         },
         onReset(event) {
           event.preventDefault()
@@ -83,7 +91,21 @@
           this.$nextTick(() => {
             this.show = true
           })
-        }
+        },
+        actualizarDatos(){
+
+        },
+        signOut(){
+                signOut(auth).then(() => {
+                // Sign-out successful.
+                console.log('cerrar sesion')
+                router.push('/')
+
+                }).catch((error) => {
+                    console.log(error)
+                // An error happened.
+                }); 
+            },
       }
     }
   </script>

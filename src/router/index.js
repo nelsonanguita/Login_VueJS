@@ -39,7 +39,7 @@ Vue.use(VueRouter)
     path: '/fichausuariocopy',
     name: 'fichausuariocopy',
     component: () => import('../views/FichaUsuariocopy.vue'),
-    meta: { requiresAuth: false }
+    meta: { requiresAuth: true }
 
   }
 ]

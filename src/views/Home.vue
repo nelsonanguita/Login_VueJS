@@ -3,8 +3,8 @@
       <div class="header">
 
         <div class="title">
-          <h1>Bienvenido</h1>    
-          <h2>Nelson Anguita</h2>
+          <h1>Bienvenid@</h1>    
+          <h2>{{ email }}</h2>
         </div>
        
 
@@ -49,9 +49,15 @@ import {  signOut  } from "firebase/auth";
 
 export default {
   name: 'Home',
-  return(){
+  data(){
+    return{
+      email: auth.currentUser.email
 
+    }
   },
+  
+  
+  
   methods:{
       signOut(){
               signOut(auth).then(() => {

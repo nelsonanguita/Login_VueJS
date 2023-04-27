@@ -1,24 +1,33 @@
 <template>
   <div >
     <div  class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-                    <!-- Navigation -->
-                  <b-navbar  toggleable="lg">
+                    <!-- Navigation  -sm|-md|-lg|-xl|-xxl-->
+                  <b-navbar  toggleable="xxxl">
                     <b-navbar-brand v-if="!existeUsuario" href="#">
-                        
-                        
-                      </b-navbar-brand>
+                       
+                    </b-navbar-brand>
                       <b-navbar-brand v-if="existeUsuario" href="#">
-                        <b-icon icon="house" scale="1">INICIO</b-icon>
-                        INICIO
+                        <router-link to="/home"> 
+                          
+                          <button style="margin-left: 100%; color: white; background: none; border: 0cap;">
+                            <b-icon  icon="house" scale="1.5"> </b-icon>
+                          </button>
+                        </router-link>
                       </b-navbar-brand>
-                  
+
                   <b-navbar-nav class="ml-auto">
-                    <b-avatar v-if="existeUsuario" variant="info" src="https://placekitten.com/300/300"></b-avatar>
-                    <button v-if="existeUsuario" type="button" @click="signOut" class="btn btn-outline-primary">LogOUT</button>
-                    <button v-if="!existeUsuario"  type="button" class="btn-logout btn-outline-primary  " >
-                      <router-link v-if="existeUsuario"  to="/signup">Registrarse</router-link>
-                    </button>
-                    
+                    <router-link v-if="existeUsuario" to="/fichausuariocopy" style="margin-right: 20px; color: #fff;">
+                      <b-avatar  variant="info" :src="photo">
+
+                      </b-avatar>
+                    </router-link>
+
+
+                    <!-- <button v-if="existeUsuario" type="button" @click="signOut" class="btn btn-outline-primary" style="color: white;">Salir</button> -->
+
+                    <router-link to="/signup">
+                      <button v-if="!existeUsuario"  type="button" class="btn btn-outline-primary" style="color: white; border-color: #fff; margin-right: 50px;">Registrarse</button>
+                    </router-link>
                   </b-navbar-nav>
 
 
@@ -38,16 +47,16 @@
   </div>
 </template>
 
-<script lang="js">
-import { signOut } from "firebase/auth";
+<script>
 import { auth } from './firebase/init';
 import { mapGetters } from "vuex";
+
 import router from '../src/router'
 
   export default {
         data() {
           return{
-
+            photo: "auth.currentUser.photoURL ? auth.currentUser.photoURL: "
           }
         },
         computed:{

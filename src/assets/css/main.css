@@ -124,8 +124,6 @@
     margin: 0;
     line-height: 1.5;
     padding-top: 5px;
-    font-size: 19px;
-    transition: background-color 100ms linear
   }
   .header{
     height: 200px;
@@ -176,9 +174,8 @@
   }
 
   .button-login{
-    height: 40px;
+    
     width: 200px;
-
   }
 
 
@@ -204,18 +201,22 @@
 .login{
   min-width: auto;
   margin-top: -100px;
+  
 }
   
   
 .btn-logout {
- 
  margin-right:50px;
- color: #ffffff;
  background-color:transparent;
-
  border-color: #ffffff;
- border-width:1px;
- border-radius: 2px;
+ border-width:2px;
+ border-radius: 8px;
  height: 42px;
  letter-spacing:0.060em;    
+}
+
+
+.img-icon{
+  height: 36px;
+  width: 36px;
 }

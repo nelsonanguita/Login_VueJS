@@ -70,24 +70,19 @@ export default {
 
           //console.log('user created ' + JSON.stringify(user))
           user.displayName = user.name;
-          // ...
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              const uid = user.uid;
-              // ...
-              console.log("user created " + JSON.stringify(user));
-              router.push("/Home");
-            } else {
-              // User is signed out
-              // ...
-            }
-          });
+          
+          console.log("user created " + JSON.stringify(user));
+          router.push("/Home");
+
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          if (errorCode=='auth/email-already-in-use') {
+            alert("El correo electronico ya existe en la BD")
+
+          }
+          
           // ..
         });
     },
