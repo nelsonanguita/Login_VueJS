@@ -5,8 +5,9 @@ import {auth} from '../firebase/init'
 
 Vue.use(VueRouter)
   const routes = [
+
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: () => import('../components/Login.vue')
     },
@@ -22,7 +23,7 @@ Vue.use(VueRouter)
     component: () => import('../components/ForgotPassword.vue')
   },
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: () => import('../views/Home.vue'),
     meta: { requiresAuth: true }
@@ -58,17 +59,21 @@ router.beforeEach((to, from, next) => {
 
     if (!usuario) {
       next({
-        path: '/'
+        path: '/login'
       })
-    } else {
+    } else if(usuario) {
       console.log("HOME")
       next()
     }
 
   } else {
     next()
+    console.log("OTRO")
+
   }
 })
+
+
 
 
 export default router

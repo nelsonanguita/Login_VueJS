@@ -77,7 +77,7 @@
         onSubmit(event) {
           event.preventDefault()
           //alert(JSON.stringify(this.form))
-          router.push('/home')
+          router.push('/')
 
         },
         onReset(event) {
@@ -99,7 +99,7 @@
                 signOut(auth).then(() => {
                 // Sign-out successful.
                 console.log('cerrar sesion')
-                router.push('/')
+                router.push('/login')
 
                 }).catch((error) => {
                     console.log(error)

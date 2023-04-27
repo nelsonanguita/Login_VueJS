@@ -1,13 +1,12 @@
 <template>
 
     <div class="divPadre">
-
         <div class="divHijo">
             <img  src="../assets/LOGO.jpg" >
         </div>
         
     <div class="inner-block login">
-        <form @submit="signIn">
+        <form @submit.prevent="signIn">
             <h2>Iniciar sesión </h2>
             <div class="mb-3">
                 <div class="form-group">
@@ -42,7 +41,7 @@
 
 </template>
 <script>
-import router from '../router/index'
+import router from '../router'
 
 import { auth } from '../firebase/init';
 
@@ -75,7 +74,7 @@ import { signInWithPopup,
                 const userCred = await signInWithPopup(auth, this.provider);
                 if (userCred) {
                     //this.existeSesion()
-                    router.push('/home')
+                    router.push('/')
 
                 }
                 
@@ -93,7 +92,7 @@ import { signInWithPopup,
                     // IdP data available using getAdditionalUserInfo(result)
                     // ...
                     console.log("sesion abierta con google")
-                    router.push('/home')
+                    router.push('/')
 
                 }).catch((error) => {
                     // Handle Errors here.
@@ -125,7 +124,7 @@ import { signInWithPopup,
                     console.log(credential)
                     // IdP data available using getAdditionalUserInfo(result)
                     // ...
-                    router.push('/home')
+                    router.push('/')
 
                 })
                 .catch((error) => {
@@ -180,7 +179,7 @@ import { signInWithPopup,
    
                     if (user) {
                         //this.user = user;
-                        router.push("/home");
+                        router.push("/");
                         console.log('Sesion activa')  
                     } else {
                         console.log('Sesion cerrada')  
@@ -198,7 +197,7 @@ import { signInWithPopup,
                     const user = userCredential.user;
 
                     console.log("ingreso")
-                    router.push("/Home");
+                    router.push("/");
 
                     // ...
                 })

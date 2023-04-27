@@ -4,7 +4,9 @@
 
         <div class="title">
           <h1>Bienvenid@</h1>    
-          <h2>{{ email }}</h2>
+          <h2 style="overflow: hidden; text-overflow: ellipsis;">
+            {{ usuario.displayName}}
+          </h2>
         </div>
        
 
@@ -46,12 +48,13 @@ import router from '../router'
 import { auth } from '../firebase/init';
 
 import {  signOut  } from "firebase/auth";
+import { mapState } from "vuex";
 
 export default {
   name: 'Home',
   data(){
     return{
-      email: auth.currentUser.email
+      displayName: ''
 
     }
   },
@@ -62,13 +65,21 @@ export default {
       signOut(){
               signOut(auth).then(() => {
               // Sign-out successful.
-              router.push('/')
+              router.push('/login')
 
               }).catch((error) => {
                   console.log(error)
               // An error happened.
               }); 
           },
+
+  },
+  computed:{
+    ...mapState(['usuario'])
+
+  },
+  created(){
+    //this.displayName = usuario.displayName !== 'null' ? usuario.displayName : usuario.email
   }
   
 }

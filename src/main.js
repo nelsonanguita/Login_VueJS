@@ -21,8 +21,13 @@ auth.onAuthStateChanged(function(user) {
    
   if (user) {
      const detectoUsuario = {
-      email: user.email
+      email: user.email,
+      uid: user.uid,
+      photoURL: user.photoURL,
+      displayName: user.displayName ?? user.email
+
      } 
+     console.log(detectoUsuario)
      store.dispatch('detectarUsuario', detectoUsuario)
      console.log("arriba")
   } else {
@@ -30,15 +35,18 @@ auth.onAuthStateChanged(function(user) {
     store.dispatch('detectarUsuario', user)
 
   }
+
+
+
+  Vue.config.productionTip = false
+
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+  
+
+
   });
 
-
-
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')

@@ -42,7 +42,7 @@
         signOut(){
                 signOut(auth).then(() => {
                 // Sign-out successful.
-                router.push('/')
+                router.push('/login')
   
                 }).catch((error) => {
                     console.log(error)

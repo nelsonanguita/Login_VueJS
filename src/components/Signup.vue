@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative  inner-block">
-    <form @submit.prevent="register">
+    <form @submit.prevent="crearUsuario({email: email, password: password})">
       <h1>Registro</h1>
       <div class="mb-3">
         <div class="form-group">
@@ -36,6 +36,7 @@
       <button type="submit" class="btn btn-dark btn-lg btn-block">
         Registrar
       </button>
+      <p>{{ error }}</p>
       <p class="forgot-password text-right">
         Ya estás registrado?
         <router-link :to="{ name: 'login' }">Inicia sesion</router-link>
@@ -45,14 +46,8 @@
 </template>
 
 <script>
-import router from "../router";
 
-import { app, auth } from "../firebase/init";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -62,31 +57,10 @@ export default {
     };
   },
   methods: {
-    register(e) {
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-
-          //console.log('user created ' + JSON.stringify(user))
-          user.displayName = user.name;
-          
-          console.log("user created " + JSON.stringify(user));
-          router.push("/Home");
-
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          if (errorCode=='auth/email-already-in-use') {
-            alert("El correo electronico ya existe en la BD")
-
-          }
-          
-          // ..
-        });
-    },
+    ...mapActions(['crearUsuario']),
   },
-  watch: {},
+  computed:{
+    ...mapState(['error'])
+  }
 };
 </script>
