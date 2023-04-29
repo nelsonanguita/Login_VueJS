@@ -12,9 +12,9 @@
 
       </div>
 
-      <div class="body">
-        <ul>
-          <li class="body_list">
+      <section class="body">
+
+
             <div class="agrupar">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" fill="#727272" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
@@ -28,12 +28,43 @@
             </p>
             
             </div>
-          </li>
-          <li class="body_list"></li>
-          <li class="body_list"></li>
-          <li class="body_list"></li>
-        </ul>
-      </div>
+
+
+        
+      </section>
+
+ 
+      <section class="btn-agendar" >
+
+        <router-link to="/tomarhora">
+                          <button type="button" class="btn btn-outline-primary" style="color: white; border-color: #fff; min-width: 100%; height: 100%;">
+                            AGENDA TU HORA
+                          </button>
+                        </router-link>
+
+        </section>
+
+        <section class="btn-agendar" >
+
+        <router-link to="/tomarhora">
+                  <button type="button" class="btn btn-outline-primary" style="color: white; border-color: #fff; min-width: 100%; height: 100%;">
+                    CONFIRMA TU HORA
+                  </button>
+                </router-link>
+
+</section>
+
+<section class="btn-agendar" >
+
+<router-link to="/tomarhora">
+          <button type="button" class="btn btn-outline-primary" style="color: white; border-color: #fff; min-width: 100%; height: 100%;">
+            CAMBIA TU HORA
+          </button>
+        </router-link>
+
+</section>
+
+
       
 
 
@@ -54,7 +85,13 @@ export default {
   name: 'Home',
   data(){
     return{
-      displayName: ''
+      displayName: '',
+      items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ],
 
     }
   },

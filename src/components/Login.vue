@@ -18,7 +18,7 @@
                 <input type="password" v-model="password" class="form-control form-control-lg" />
             </div>
             </div>
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Iniciar</button>
+            <button type="submit" class="btn btn-lg btn-block">Iniciar</button>
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
             </p>

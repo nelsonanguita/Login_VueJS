@@ -16,11 +16,21 @@ Vue.use(VueRouter)
     name: 'signup',
     component: () => import('../components/Signup.vue')
   },
+  {
+    path: '/tomarhora',
+    name: 'tomarhora',
+    component: () => import('../components/TomarHora.vue')
+  },
 
   {
     path: '/forgot-password',
     name: 'forgot-password',
     component: () => import('../components/ForgotPassword.vue')
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: () => import('../components/Calendar.vue')
   },
   {
     path: '/',

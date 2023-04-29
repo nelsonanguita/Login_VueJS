@@ -49,7 +49,9 @@
        
   
         <b-button type="submit" variant="primary">Actualizar</b-button>
-        <b-button type="button" variant="dark" @click="signOut"> Cerrar sesion</b-button>
+        <b-button type="button" variant="light" @click="signOut"> 
+          <b-icon icon="power" aria-hidden="true"></b-icon> Cerrar sesion
+        </b-button>
 
       </b-form>
 

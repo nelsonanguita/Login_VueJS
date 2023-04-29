@@ -16,6 +16,7 @@ Vue.use(AvatarPlugin)
 
 
 import { auth } from './firebase/init';
+import vuetify from './plugins/vuetify'
 
 auth.onAuthStateChanged(function(user) {
    
@@ -23,7 +24,7 @@ auth.onAuthStateChanged(function(user) {
      const detectoUsuario = {
       email: user.email,
       uid: user.uid,
-      photoURL: user.photoURL,
+      photoURL: user.photoURL ?? "https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Kurt&hairColor=Red&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Wink&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=Brown",
       displayName: user.displayName ?? user.email
 
      } 
@@ -43,6 +44,7 @@ auth.onAuthStateChanged(function(user) {
   new Vue({
     router,
     store,
+    vuetify,
     render: h => h(App)
   }).$mount('#app')
   
