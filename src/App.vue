@@ -3,7 +3,18 @@
     <!-- navbar navbar-dark flex-column flex-md-row bd-navbar -->
     <div  class="navbar-dark flex-column flex-md-row bd-navbar">
                     <!-- Navigation  -sm|-md|-lg|-xl|-xxl-->
+                                          
+
                     <b-navbar  toggleable="xxxl" style="align-items:center; padding: 0px;" class="d-flex justify-content-between">
+                    
+                      <b-navbar-brand v-if="!existeUsuario" href="#"  style="margin-left: 10PX; " >
+                            <router-link to="/singup"> 
+                              <button style=" color: white; background: none; border: 0cap; margin-left: 10PX">
+                                Registrate
+                              </button>
+                            </router-link>
+                      </b-navbar-brand>
+                    
                       <b-navbar-brand v-if="existeUsuario" href="#"  style="margin-left: 10PX; " >
                             <router-link to="/"> 
                               <button style=" color: white; background: none; border: 0cap; margin-left: 10PX">

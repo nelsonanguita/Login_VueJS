@@ -6,37 +6,40 @@
         </div>
         
     <div class="inner-block login">
-        <form @submit.prevent="signIn">
-            <h2>Iniciar sesión </h2>
-            <div class="mb-3">
+        <b-overlay :show="show" rounded="sm">
+            <form @submit.prevent="signIn" :aria-hidden="show ? 'true' : null">
+                <h2>Iniciar sesión </h2>
+                <div class="mb-3">
+                    <div class="form-group">
+                    <label>Correo electronico </label>
+                    <input type="email" v-model="email" class="form-control form-control-lg" />
+                </div>
                 <div class="form-group">
-                <label>Correo electronico </label>
-                <input type="email" v-model="email" class="form-control form-control-lg" />
-            </div>
-            <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" v-model="password" class="form-control form-control-lg" />
-            </div>
-            </div>
-            <button type="submit" class="btn btn-lg btn-block">Iniciar</button>
-            <p class="forgot-password text-right mt-2 mb-4">
-                <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
-            </p>
-            <div class="d-flex gap-5">
-                        <b-button  @click="popUpWithGoogle" class="button-login btn-light ">
-                            <img class="img-icon" src="../assets/icons/google.svg" alt="" srcset="">
+                    <label>Contraseña</label>
+                    <input type="password" v-model="password" class="form-control form-control-lg" />
+                </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-block">Iniciar</button>
+                <p class="forgot-password text-right mt-2 mb-4">
+                    <router-link to="/forgot-password">¿Olvidaste tu contraseña?</router-link>
+                </p>
+                <div class="d-flex gap-5">
+                            <b-button  @click="popUpWithGoogle" class="button-login btn-light ">
+                                <img class="img-icon" src="../assets/icons/google.svg" alt="" srcset="">
 
-                        </b-button>
-                        <b-button @click="popUpWithFacebook" class="button-login" variant="primary">
-                            <img class="img-icon" src="../assets/icons/facebook.svg" alt="" srcset="">
-                        </b-button>
-                        
+                            </b-button>
+                            <b-button @click="popUpWithFacebook" class="button-login" variant="primary">
+                                <img class="img-icon" src="../assets/icons/facebook.svg" alt="" srcset="">
+                            </b-button>
+                            
 
-            </div>
+                </div>
 
-        </form>
-
+            </form>
+        </b-overlay>
     </div>
+
+
 </div>
 
 </template>
@@ -54,6 +57,7 @@ import { signInWithPopup,
     export default {
         data() {
             return {
+                show:false,
                 email:'',
                 password:'',
                 datos:'',
@@ -187,7 +191,7 @@ import { signInWithPopup,
                     });
            },
            signIn(e){
-  
+            this.show=true;
             e.preventDefault()
 
             signInWithEmailAndPassword(auth, this.email, this.password)
